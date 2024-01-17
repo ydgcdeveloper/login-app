@@ -1,27 +1,56 @@
-<ion-header >
+<ion-header [translucent]="true" id="header">
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item>
-      <ion-input
-        label="Username"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Enter text"
-      ></ion-input>
-    </ion-item>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-item>
-      <ion-input
-        label="Password"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Enter text"
-      ></ion-input>
-    </ion-item>
-  </ion-list>
+  <div class="container">
+    <div class="form-list">
+      <form [formGroup]="loginForm" (submit)="login()">
+        <ion-input
+          label="Correo"
+          label-placement="floating"
+          fill="solid"
+          formControlName="email"
+          errorText="Correo inválido"
+        ></ion-input>
+
+        <ion-input
+          label="Contraseña"
+          label-placement="floating"
+          fill="solid"
+          formControlName="password"
+          type="password"
+        >
+          <ion-button
+            fill="clear"
+            slot="end"
+            aria-label="Mostrar/Ocultar"
+            (click)="toogleVisibility()"
+          >
+            @if(inputPassType == 'password'){
+            <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
+            } @else {
+            <ion-icon
+              slot="icon-only"
+              name="eye-off"
+              aria-hidden="true"
+            ></ion-icon>
+            }
+          </ion-button>
+        </ion-input>
+        <ion-button type="submit" class="init" shape="round" expand="block"
+          >@if (logging$ | async) {
+          <ion-spinner name="circles"></ion-spinner> }@else { Iniciar }
+        </ion-button>
+      </form>
+    </div>
+  </div>
 </ion-content>

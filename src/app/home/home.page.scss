@@ -6,6 +6,10 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 #container strong {
@@ -24,4 +28,23 @@
 
 #container a {
   text-decoration: none;
+}
+
+.icon-image{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+
+  ion-img {
+    width: 150px;
+  }
+}
+
+ion-button.logout {
+  width: 60%;
+  margin-top: 30px;
 }

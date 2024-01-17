@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title> Home </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +11,23 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="icon-image">
+    <ion-img
+      src="../../assets/images/yo_profe_icon.png"
+      alt="Yo profe"
+    ></ion-img>
+  </div>
+
   <div id="container">
     <strong>Welcome to this Login App</strong>
+    <ion-button
+      class="logout"
+      color="medium"
+      fill="outline"
+      shape="round"
+      (click)="logOut()"
+    >
+      Salir
+    </ion-button>
   </div>
 </ion-content>
