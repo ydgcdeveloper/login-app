@@ -18,7 +18,6 @@ import { addIcons } from 'ionicons';
 import {
   IonButton,
   IonContent,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonInput,
