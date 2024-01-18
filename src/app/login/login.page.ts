@@ -2,7 +2,6 @@ import { DestroyComponent } from './../components/destroy/destroy.component';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,15 +13,40 @@ import { AuthService } from '../services/auth.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store';
 
-import { eye, eyeOff, logIn } from 'ionicons/icons';
+import { eye, eyeOff } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import {
+  IonButton,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonSpinner,
+  IonTitle,
+  IonToast,
+  IonToolbar,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-login-test',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonContent,
+    IonTitle,
+    IonInput,
+    IonIcon,
+    IonButton,
+    IonSpinner,
+    IonToast,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
   fb: FormBuilder = inject(FormBuilder);
@@ -50,8 +74,8 @@ export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         if (response.data.success) {
           this.authService.setAuthenticatedUser(response.data);
+          this.authService.presentToast(response.data.message, 'success');
           this.router.navigateByUrl('', { replaceUrl: true });
-          this.authService.presentToast('Inicio exitoso', 'success');
         } else {
           this.authService.presentToast(response.data.message, 'error');
         }
@@ -64,16 +88,15 @@ export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.loginForm = this.fb.group({
-      email: new FormControl(
+      correo: new FormControl(
         '',
         Validators.compose([Validators.required, Validators.email])
       ),
-      password: new FormControl('', Validators.compose([Validators.required])),
+      contraseña: new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)])),
     });
   }
 
   toogleVisibility() {
-    console.log('toogleVisibility');
     this.inputPassType =
       this.inputPassType === 'password' ? 'text' : 'password';
   }

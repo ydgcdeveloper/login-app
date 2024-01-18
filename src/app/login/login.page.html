@@ -1,13 +1,13 @@
 <ion-header [translucent]="true" id="header">
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title class="center">Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Login</ion-title>
+      <ion-title size="large">Iniciar sesión</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -15,42 +15,52 @@
     <div class="form-list">
       <form [formGroup]="loginForm" (submit)="login()">
         <ion-input
+          id="email"
           label="Correo"
           label-placement="floating"
-          fill="solid"
-          formControlName="email"
+          formControlName="correo"
+          name="email"
           errorText="Correo inválido"
         ></ion-input>
 
         <ion-input
+          id="password"
           label="Contraseña"
           label-placement="floating"
-          fill="solid"
-          formControlName="password"
-          type="password"
+          formControlName="contraseña"
+          name="contraseña"
+          errorText="Mínimo 8 caracteres"
+          [type]="inputPassType"
         >
-          <ion-button
-            fill="clear"
+          @if(inputPassType == 'password'){
+          <ion-icon
             slot="end"
-            aria-label="Mostrar/Ocultar"
+            name="eye"
+            aria-hidden="true"
             (click)="toogleVisibility()"
-          >
-            @if(inputPassType == 'password'){
-            <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
-            } @else {
-            <ion-icon
-              slot="icon-only"
-              name="eye-off"
-              aria-hidden="true"
-            ></ion-icon>
-            }
-          </ion-button>
+          ></ion-icon>
+          } @else {
+          <ion-icon
+            slot="end"
+            name="eye-off"
+            aria-hidden="true"
+            (click)="toogleVisibility()"
+          ></ion-icon>
+          }
         </ion-input>
-        <ion-button type="submit" class="init" shape="round" expand="block"
+
+        <ion-button
+          type="submit"
+          class="init"
+          shape="round"
+          expand="block"
+          [disabled]="!loginForm.valid"
           >@if (logging$ | async) {
           <ion-spinner name="circles"></ion-spinner> }@else { Iniciar }
         </ion-button>
       </form>
+      <p>¿No tienes cuenta? <a href="#">Registrarse</a></p>
+      <a href="#">¿Olvidaste tu contraseña?</a>
     </div>
   </div>
 </ion-content>

@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { selectLogging } from '../store/auth';
+import { logout, selectLogging } from '../store/auth';
 import { AuthState } from '../store';
 import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,8 @@ export class AuthService {
   constructor(
     private store: Store<AuthState>,
     private httpClient: HttpClient,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   login(data: any) {
@@ -30,17 +32,14 @@ export class AuthService {
   }
 
   setAuthenticatedUser(data: any) {
-    console.log('data', data);
     if (!data) {
       return;
     }
-    localStorage.setItem('token', data.payload.token);
+    localStorage.setItem('token', data.role);
     localStorage.setItem(
       'user',
       JSON.stringify({
-        id: data.payload.id,
-        name: data.payload.name,
-        email: data.payload.email,
+        role: data.role,
       })
     );
   }
@@ -60,5 +59,27 @@ export class AuthService {
     });
 
     await toast.present();
+  }
+
+  async confirmLogout() {
+    const alert = await this.alertController.create({
+      header: 'Salir',
+      message: '¿Estás seguro que quieres salir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Si',
+          role: 'confirm',
+          handler: () => {
+            this.store.dispatch(logout());
+          },
+        }
+      ],
+    });
+
+    await alert.present();
   }
 }

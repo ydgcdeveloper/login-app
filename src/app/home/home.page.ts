@@ -2,25 +2,24 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DestroyComponent } from '../components/destroy/destroy.component';
 import { Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
-import { logout, logoutSuccess } from '../store/auth';
+import { logoutSuccess } from '../store/auth';
 import { takeUntil } from 'rxjs';
-import { IonicModule } from '@ionic/angular';
-import { AuthState } from '../store';
-import { Store } from '@ngrx/store';
+import { IonAlert, IonButton, IonContent, IonHeader, IonImg, IonTitle, IonToast, IonToolbar } from '@ionic/angular/standalone';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonHeader, IonToolbar, IonContent, IonTitle, IonButton, IonImg, IonToast, IonAlert],
 })
 export class HomePage extends DestroyComponent implements OnInit, OnDestroy {
   
   constructor(
     private router: Router,
     private actions$: Actions,
-    private store: Store<AuthState>,
+    private authService: AuthService
   ) {
     super();
   }
@@ -38,6 +37,6 @@ export class HomePage extends DestroyComponent implements OnInit, OnDestroy {
   }
 
   logOut(){
-    this.store.dispatch(logout());
+    this.authService.confirmLogout();
   }
 }
