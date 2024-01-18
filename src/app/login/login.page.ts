@@ -83,7 +83,6 @@ export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
     this.actions$
       .pipe(ofType(loginFailure), takeUntil(this.destroy$))
       .subscribe((response) => {
-        console.log(response);
         this.authService.presentToast('Error desconocido', 'error');
       });
   }
