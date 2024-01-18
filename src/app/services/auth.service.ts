@@ -64,10 +64,10 @@ export class AuthService {
   async confirmLogout() {
     const alert = await this.alertController.create({
       header: 'Salir',
-      message: '¿Estás seguro que quieres salir?',
+      message: '¿Está seguro que desea salir?',
       buttons: [
         {
-          text: 'Cancelar',
+          text: 'No',
           role: 'cancel',
         },
         {

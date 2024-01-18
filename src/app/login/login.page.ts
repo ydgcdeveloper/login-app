@@ -7,7 +7,7 @@ import { Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { login, loginSuccess } from '../store/auth';
+import { login, loginFailure, loginSuccess } from '../store/auth';
 import { takeUntil } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Store } from '@ngrx/store';
@@ -62,7 +62,7 @@ export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
   ) {
     super();
     addIcons({
-      'eye': eye,
+      eye: eye,
       'eye-off': eyeOff,
     });
   }
@@ -80,6 +80,13 @@ export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
           this.authService.presentToast(response.data.message, 'error');
         }
       });
+
+    this.actions$
+      .pipe(ofType(loginFailure), takeUntil(this.destroy$))
+      .subscribe((response) => {
+        console.log(response);
+        this.authService.presentToast('Error desconocido', 'error');
+      });
   }
 
   override ngOnDestroy(): void {
@@ -92,7 +99,10 @@ export class LoginPage extends DestroyComponent implements OnInit, OnDestroy {
         '',
         Validators.compose([Validators.required, Validators.email])
       ),
-      contraseña: new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)])),
+      contraseña: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.minLength(8)])
+      ),
     });
   }
 
