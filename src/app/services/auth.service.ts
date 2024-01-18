@@ -5,8 +5,7 @@ import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { logout, selectLogging } from '../store/auth';
 import { AuthState } from '../store';
-import { ToastController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular/standalone';
+import { AlertController, ToastController } from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root',
