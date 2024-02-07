@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { login, loginFailure, loginSuccess } from '../store/auth';
 import { takeUntil } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store';
 

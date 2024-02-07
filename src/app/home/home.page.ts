@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { logoutSuccess } from '../store/auth';
 import { takeUntil } from 'rxjs';
 import { IonAlert, IonButton, IonContent, IonHeader, IonImg, IonTitle, IonToast, IonToolbar } from '@ionic/angular/standalone';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomePage extends DestroyComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private locationService: LocationService
   ) {
     super();
   }
@@ -30,6 +32,8 @@ export class HomePage extends DestroyComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.router.navigateByUrl('/login', { replaceUrl: true });
       });
+
+      this.locationService.printCurrentPosition();
   }
 
   override ngOnDestroy(): void {
