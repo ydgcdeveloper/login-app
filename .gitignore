@@ -20,7 +20,7 @@ log.txt
 # Ionic
 /.ionic
 /www
-/android
+# /android
 /resources
 /platforms
 /plugins

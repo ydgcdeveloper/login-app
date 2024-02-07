@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Login ydgc</string>
+    <string name="title_activity_main">Login ydgc</string>
+    <string name="package_name">login.app.ydgc</string>
+    <string name="custom_url_scheme">login.app.ydgc</string>
+</resources>
