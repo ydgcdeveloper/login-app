@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'login.app.ydgc',
-  appName: 'Login ydgc',
+  appId: 'safe.location.app',
+  appName: 'Safe location',
   webDir: 'www',
   server: {
     androidScheme: 'https'
